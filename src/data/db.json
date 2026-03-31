@@ -1,0 +1,140 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Classic T-Shirt",
+      "category": "T-Shirts",
+      "price": 120,
+      "sale": 20,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["Black", "White", "Blue"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7.png",
+      "images": [
+        "https://img-lcwaikiki.mncdn.com/mnpadding/1020/1360/ffffff/pim/productimages/20202/4691395/l_20202-0weg03z8-cvl_z.jpg",
+        "https://usmall.ru/image/1180/74/64/6d6c3cf03df9bc428a8723e27d8f0b68.jpeg"
+      ],
+      "isNewArrivals": true,
+      "isTopSelling": false,
+      "description": "A classic T-Shirt made from high-quality cotton, perfect for everyday wear."
+    },
+    {
+      "id": 2,
+      "name": "CHECKERED SHIRT",
+      "category": "Hoodies",
+      "price": 200,
+      "sale": 15,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["Gray", "Black"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1.png",
+      "images": [
+        "https://merch.riotgames.com/_next/image/?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fdsfx7636%2Fconsumer_products%2F9a07de7511575e05db41b6c67a7d9dabf025f9be-2560x2560.png%3FaccountingTag%3Dconsumer_products&w=3840&q=75",
+        "https://media.littlewoods.com/i/littlewoods/WKVEJ_SQ1_0000000005_GREY_MDf?$pdp_300x400_x2$&fmt=jpg"
+      ],
+      "isNewArrivals": true,
+      "isTopSelling": false,
+      "description": "Warm and stylish hoodie, ideal for casual outfits and cold weather."
+    },
+    {
+      "id": 3,
+      "name": "Slim Fit Jeans",
+      "category": "Jeans",
+      "price": 150,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["Blue", "Black"],
+      "sale": 10,
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8.png",
+      "images": [
+        "https://images.kleertjes.com/i/kleertjes/17151101_eb_01/name-it-kids-slim-fit-jeans-nkmtheo-light-blue-denim-light-blue-denim-5715308754283.jpg?w=640&h=960&qlt=75&fit=contain",
+        "https://meandmymum.de/cdn/shop/products/NAME-IT_Autumnwinter_4274112_13220597_1_1024x.jpg?v=1677578243"
+      ],
+      "isNewArrivals": true,
+      "isTopSelling": false,
+      "description": "Comfortable slim-fit jeans, crafted for a modern look and flexible movement."
+    },
+    {
+      "id": 4,
+      "name": "SLEEVE STRIPED T-SHIRT",
+      "category": "T-Shirts",
+      "price": 200,
+      "sale": 30,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["White", "Black", "Red"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10.png",
+      "images": [
+        "https://static.ftshp.digital/img/p/1/1/9/6/7/2/2/1196722.jpg",
+        "https://cdn.outsideonline.com/wp-content/uploads/2022/12/On_Cloudflyer_4_s.jpg"
+      ],
+      "isNewArrivals": true,
+      "isTopSelling": false,
+      "description": "Lightweight and comfortable sneakers perfect for running or casual wear."
+    },
+    {
+  "id": 5,
+  "name": "SLEEVE STRIPED T-SHIRT",
+  "category": "Hoodies",
+  "price": 180,
+  "sale": 25,
+  "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["Black", "Gray", "Green"],
+  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7-1.png",
+  "images": [
+    "https://cdn.shopify.com/s/files/1/0293/9277/products/hoodie-black-front_1024x1024.jpg",
+    "https://images.asos-media.com/products/asos-design-oversized-hoodie-in-black/20500000-1-black"
+  ],
+  "isNewArrivals": false,
+  "isTopSelling": true,
+  "description": "Comfortable oversized hoodie made for everyday casual style."
+},
+{
+  "id": 6,
+  "name": "COURAGE GRAPHIC T-SHIRT",
+    "category": "T-Shirts",
+  "price": 140,
+  "sale": 10,
+  "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["White"],
+  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8-2.png",
+  "images": [
+    "https://assets.myntassets.com/assets/images/white-shirt-1.jpg",
+    "https://assets.myntassets.com/assets/images/white-shirt-2.jpg"
+  ],
+  "isNewArrivals": false,
+  "isTopSelling": true,
+  "description": "Classic white shirt perfect for formal and casual outfits."
+},
+{
+  "id": 7,
+  "name": "LOOSE FIT BERMUDA SHORTS",
+  "category": "SHORTS",
+  "price": 250,
+  "sale": 20,
+  "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["Blue", "Black"],
+  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1-1.png",
+  "images": [
+    "https://images.asos-media.com/products/denim-jacket-1.jpg",
+    "https://images.asos-media.com/products/denim-jacket-2.jpg"
+  ],
+  "isNewArrivals": false,
+  "isTopSelling": true,
+  "description": "Stylish denim SHORTS that fits perfectly with modern outfits."
+},
+{
+  "id": 8,
+  "name": "FADED SKINNY JEANS",
+  "category": "JEANS",
+  "price": 220,
+  "sale": 15,
+  "size": ["40", "41", "42", "43", "44"],
+  "color": ["White", "Black"],
+  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10-1.png",
+  "images": [
+    "https://static.nike.com/a/images/sneakers-1.png",
+    "https://static.nike.com/a/images/sneakers-2.png"
+  ],
+  "isNewArrivals": false,
+  "isTopSelling": true,
+  "description": "Lightweight sport sneakers designed for comfort and performance."
+}
+  ]
+}
