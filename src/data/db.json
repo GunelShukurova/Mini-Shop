@@ -27,8 +27,8 @@
       "color": ["Gray", "Black"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1.png",
       "images": [
-        "https://merch.riotgames.com/_next/image/?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fdsfx7636%2Fconsumer_products%2F9a07de7511575e05db41b6c67a7d9dabf025f9be-2560x2560.png%3FaccountingTag%3Dconsumer_products&w=3840&q=75",
-        "https://media.littlewoods.com/i/littlewoods/WKVEJ_SQ1_0000000005_GREY_MDf?$pdp_300x400_x2$&fmt=jpg"
+        "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/cf0c32914ae2e37b3d2d14efad2a488a.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5X9aCOGMYpZAPO8T5Prg2zCWPUKBBvZW5VA&s"
       ],
       "isNewArrivals": true,
       "isTopSelling": false,
@@ -61,80 +61,178 @@
       "color": ["White", "Black", "Red"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10.png",
       "images": [
-        "https://static.ftshp.digital/img/p/1/1/9/6/7/2/2/1196722.jpg",
-        "https://cdn.outsideonline.com/wp-content/uploads/2022/12/On_Cloudflyer_4_s.jpg"
+        "https://www.shoplamarel.com/cdn/shop/products/tshirt_stripedgreen_7e803fe2-2507-4392-9032-174d4623fa7d.jpg?v=1705582977&width=1501",
+        "https://www.ardene.com/on/demandware.static/-/Sites-master-catalog/default/dwaca4f3bc/images/large/5B-AP31893-08-bcfdad89-e62b-45b1-85d8-5424c1fa7246.jpg"
       ],
       "isNewArrivals": true,
       "isTopSelling": false,
       "description": "Lightweight and comfortable sneakers perfect for running or casual wear."
     },
     {
-  "id": 5,
-  "name": "SLEEVE STRIPED T-SHIRT",
-  "category": "Hoodies",
-  "price": 180,
-  "sale": 25,
+      "id": 5,
+      "name": "SLEEVE STRIPED T-SHIRT",
+      "category": "Hoodies",
+      "price": 180,
+      "sale": 25,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["Black", "Gray", "Green"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7-1.png",
+      "images": [
+        "https://tiimg.tistatic.com/fp/1/008/397/mens-striped-long-sleeve-black-with-white-o-neck-cotton-t-shirt-384.jpg",
+        "https://m.media-amazon.com/images/I/71SIBOQWYLL._AC_UY1000_.jpg"
+      ],
+      "isNewArrivals": false,
+      "isTopSelling": true,
+      "description": "Comfortable oversized hoodie made for everyday casual style."
+    },
+    {
+      "id": 6,
+      "name": "COURAGE GRAPHIC T-SHIRT",
+      "category": "T-Shirts",
+      "price": 140,
+      "sale": 10,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["White"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8-2.png",
+      "images": [
+        "https://www.childrensalon.com/media/catalog/product/cache/0/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/m/o/molo-boys-beige-cotton-courage-t-shirt-587511-817145b303da93fc31d9ac86202ccd41.jpg",
+        "https://img01.ztat.net/article/spp-media-p1/ec26aee9b3834c2098ac1b25791f1d2a/d35f7bbc79394e1181899096ed003c63.jpg?imwidth=762"
+      ],
+      "isNewArrivals": false,
+      "isTopSelling": true,
+      "description": "Classic white shirt perfect for formal and casual outfits."
+    },
+    {
+      "id": 7,
+      "name": "LOOSE FIT BERMUDA SHORTS",
+      "category": "SHORTS",
+      "price": 250,
+      "sale": 20,
+      "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["Blue", "Black"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1-1.png",
+      "images": [
+        "https://image.hm.com/assets/hm/f6/86/f6862c7addc7913db4f2c5d1df29f469ebcd0707.jpg?imwidth=2160",
+        "https://www.alcott.eu/dw/image/v2/BDJZ_PRD/on/demandware.static/-/Sites-catalog-alcott-master/default/dw8bb94be4/hi-res/BE0016UOAY14_D003_001.jpg?sw=1000&sh=1350&q=90&strip=false"
+      ],
+      "isNewArrivals": false,
+      "isTopSelling": true,
+      "description": "Stylish denim SHORTS that fits perfectly with modern outfits."
+    },
+    {
+      "id": 8,
+      "name": "FADED SKINNY JEANS",
+      "category": "JEANS",
+      "price": 220,
+      "sale": 15,
+       "size": ["Small", "Medium", "Large", "X-Large"],
+      "color": ["White", "Black"],
+      "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10-1.png",
+      "images": [
+        "https://mccannbespoke.co.uk/wp-content/uploads/2021/08/Charcoal-Jeans-1-300x300.jpg",
+        "https://image.made-in-china.com/202f0j00NdwieFQnzykS/New-Naturally-Faded-High-Stretch-Fit-Black-Wash-Slim-Taper-Mens-Skinny-Jeans.webp"
+      ],
+      "isNewArrivals": false,
+      "isTopSelling": true,
+      "description": "Lightweight sport sneakers designed for comfort and performance."
+    },
+      {
+    "id": 9,
+    "name": "CLASSIC WHITE T-SHIRT",
+    "category": "T-SHIRT",
+    "price": 45,
+    "sale": 10,
   "size": ["Small", "Medium", "Large", "X-Large"],
-  "color": ["Black", "Gray", "Green"],
-  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7-1.png",
-  "images": [
-    "https://cdn.shopify.com/s/files/1/0293/9277/products/hoodie-black-front_1024x1024.jpg",
-    "https://images.asos-media.com/products/asos-design-oversized-hoodie-in-black/20500000-1-black"
-  ],
-  "isNewArrivals": false,
-  "isTopSelling": true,
-  "description": "Comfortable oversized hoodie made for everyday casual style."
-},
-{
-  "id": 6,
-  "name": "COURAGE GRAPHIC T-SHIRT",
-    "category": "T-Shirts",
-  "price": 140,
-  "sale": 10,
-  "size": ["Small", "Medium", "Large", "X-Large"],
-  "color": ["White"],
-  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8-2.png",
-  "images": [
-    "https://assets.myntassets.com/assets/images/white-shirt-1.jpg",
-    "https://assets.myntassets.com/assets/images/white-shirt-2.jpg"
-  ],
-  "isNewArrivals": false,
-  "isTopSelling": true,
-  "description": "Classic white shirt perfect for formal and casual outfits."
-},
-{
-  "id": 7,
-  "name": "LOOSE FIT BERMUDA SHORTS",
-  "category": "SHORTS",
-  "price": 250,
+    "color": ["White", "Black", "Gray"],
+    "image": "https://www.sunspel.com/cdn/shop/files/mtsh0001-whaa-1_887d1cc2-951e-4812-97be-04f6a5098919.jpg?v=1753793209&width=1150",
+    "images": [
+      "https://www.buyworkwear.co.uk/cdn/shop/products/UC301-WH-L.jpg?v=1684765810",
+      "https://www.rollingstone.com/wp-content/uploads/2025/08/A33280031-dynamic1-pdp.webp?w=1024"
+    ],
+    "isNewArrivals": true,
+    "isTopSelling": false,
+    "description": "A classic white t-shirt made from soft breathable cotton. Perfect for everyday wear and easy to combine with any outfit."
+  },
+  {
+  "id": 11,
+  "name": "GRAPHIC PRINT T-SHIRT",
+  "category": "T-SHIRT",
+  "price": 60,
   "sale": 20,
-  "size": ["Small", "Medium", "Large", "X-Large"],
-  "color": ["Blue", "Black"],
-  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1-1.png",
+   "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["White", "Black"],
+  "image": "https://www.gant.se/dw/image/v2/BFLN_PRD/on/demandware.static/-/Sites-gant-master/default/dwd6fc3395/PhotoStudio/time__1729516514__202404-2003292-433-flat-fv-1.jpg?sw=1440",
   "images": [
-    "https://images.asos-media.com/products/denim-jacket-1.jpg",
-    "https://images.asos-media.com/products/denim-jacket-2.jpg"
+    "https://www.gant.dk/dw/image/v2/BFLN_PRD/on/demandware.static/-/Sites-gant-master/default/dw0839bda6/PhotoStudio/time__1700905242__202401-2033016-093-flat-fv-1.jpg?sw=650",
+    "https://gomez.pl/assets/photo/align-tc/upload/product/326/26-04-2024m04795-1-scale-200-200.jpg.webp"
   ],
   "isNewArrivals": false,
   "isTopSelling": true,
-  "description": "Stylish denim SHORTS that fits perfectly with modern outfits."
+  "description": "Stylish graphic print t-shirt designed for streetwear lovers."
 },
 {
-  "id": 8,
-  "name": "FADED SKINNY JEANS",
-  "category": "JEANS",
-  "price": 220,
-  "sale": 15,
-  "size": ["40", "41", "42", "43", "44"],
-  "color": ["White", "Black"],
-  "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10-1.png",
+  "id": 12,
+  "name": "SPORT PERFORMANCE T-SHIRT",
+  "category": "T-SHIRT",
+  "price": 50,
+  "sale": 5,
+   "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["Blue", "Black", "Gray"],
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkUCHVXW-ZCjtF461L9gkjlJF4xNuRgpBxJQ&s",
   "images": [
-    "https://static.nike.com/a/images/sneakers-1.png",
-    "https://static.nike.com/a/images/sneakers-2.png"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJwQeyuGEl2DPWBtc8oYK8RvEfyuXBdBUikw&s",
+    "https://slimages.macysassets.com/is/image/MCY/products/4/optimized/3414084_fpx.tif?$filterlrg$&wid=327"
+  ],
+  "isNewArrivals": true,
+  "isTopSelling": true,
+  "description": "Lightweight sport t-shirt designed for workouts and active lifestyle."
+},
+{
+  "id": 13,
+  "name": "MINIMAL LOGO T-SHIRT",
+  "category": "T-SHIRT",
+  "price": 48,
+  "sale": 0,
+   "size": ["Small", "Medium", "Large", "X-Large"],
+  "color": ["White", "Black", "Beige"],
+  "image": "https://rlv.zcache.com/photography_camera_modern_minimal_logo_t_shirt-rec4787a681924940ad3cdae13c5b0b65_jyr60_644.jpg",
+  "images": [
+    "https://www.mezaldy.com/wp-content/uploads/2025/07/arbor-antwerp-minimal-logo-t-shirt-wit.jpg",
+    "https://rlv.zcache.com/photography_camera_modern_minimal_logo_t_shirt-rec4787a681924940ad3cdae13c5b0b65_k2gmm_644.jpg"
   ],
   "isNewArrivals": false,
-  "isTopSelling": true,
-  "description": "Lightweight sport sneakers designed for comfort and performance."
+  "isTopSelling": false,
+  "description": "Minimal logo t-shirt with a clean and modern design."
 }
+  ],
+    "reviews": [
+    {
+      "id": "1",
+      "user": "Michael Johnson",
+      "rating": 5,
+      "productId": "1",
+      "review": "I was honestly surprised by the quality of this t-shirt. The fabric feels very soft and comfortable, and even after several washes it still keeps its shape and color. The fit is perfect and it looks great with both casual and slightly more dressed-up outfits. I would definitely recommend this product to anyone looking for a simple but high-quality everyday shirt."
+    },
+    {
+      "id": "2",
+      "user": "Emily Carter",
+      "rating": 4,
+      "productId": "1",
+      "review": "The material is really nice and breathable which makes it very comfortable to wear during the day. I especially like how lightweight it feels. The only small downside is that I expected the fabric to be slightly thicker, but overall it's still a very good purchase and I would consider buying another one in a different color."
+    },
+    {
+      "id": "3",
+      "user": "Daniel Smith",
+      "rating": 5,
+      "productId": "2",
+      "review": "This hoodie exceeded my expectations. It is warm, stylish, and extremely comfortable. The stitching and overall construction feel very durable and premium. I have been wearing it almost every day since I bought it and it still looks brand new. Definitely worth the price."
+    },
+    {
+      "id": "4",
+      "user": "Sophia Williams",
+      "rating": 3,
+      "productId": "2",
+      "review": "The hoodie looks really good and fits nicely, but I feel like the fabric could be a little softer. It's still comfortable, but compared to some other hoodies I own it's slightly less cozy. That said, the design is great and it pairs well with jeans or sweatpants."
+    }
   ]
 }

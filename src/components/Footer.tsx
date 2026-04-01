@@ -6,31 +6,36 @@ import { FaGithub } from "react-icons/fa";
 const Footer = () => {
   return (
     <div>
-      <div className="mx-4 sm:mx-10 lg:mx-35 ">
-        <div className="w-full bg-black flex flex-col lg:flex-row justify-between rounded-2xl p-6 lg:h-45 gap-6">
-          <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white lg:w-160 mt-0 lg:mt-6">
-            STAY UPTO DATE ABOUT OUR LATEST OFFERS
-          </h1>
+<div className="relative z-10 -mb-24 mt-20">
+  <div className="mx-4 sm:mx-10 lg:mx-75">
+    <div className="w-full bg-black flex flex-col lg:flex-row justify-between rounded-2xl p-6 lg:h-45 gap-6">
+      
+      <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white lg:max-w-xl">
+        STAY UPTO DATE ABOUT OUR LATEST OFFERS
+      </h1>
 
-          <div className="flex flex-col lg:flex-col gap-4 lg:gap-5 mt-0 lg:mt-5 w-full lg:w-auto relative">
-            <div className="relative w-full lg:w-[full]">
-              <input
-                className="h-10 w-full bg-white rounded-full pl-10 pr-10 text-base focus:outline-none"
-                type="text"
-                placeholder="Enter your email address"
-              />
-              <GoMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
-            </div>
-
-            <input
-              className="h-10 w-full lg:w-[40vh] bg-white rounded-full pl-4 pr-4 text-base focus:outline-none"
-              type="text"
-              placeholder="Subscribe to Newsletter"
-            />
-          </div>
+      <div className="flex flex-col gap-4 lg:gap-5 w-full lg:w-auto">
+        
+        <div className="relative w-full lg:w-80">
+          <input
+            className="h-10 w-full bg-white rounded-full pl-10 pr-4 text-base focus:outline-none"
+            type="text"
+            placeholder="Enter your email address"
+          />
+          <GoMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
         </div>
+
+        <input
+          className="h-10 w-full lg:w-80 bg-white rounded-full pl-4 pr-4 text-base focus:outline-none"
+          type="text"
+          placeholder="Subscribe to Newsletter"
+        />
+
       </div>
-      <footer className="bg-[#F0F0F0] px-4 sm:px-10 md:px-35 py-10 w-full">
+    </div>
+  </div>
+</div>
+      <footer className="bg-[#F0F0F0] px-4 sm:px-10 md:px-75 py-10 w-full pt-30">
         <div className="flex flex-col md:flex-row justify-between flex-wrap gap-10">
           <div className="mb-10 md:mb-0 max-w-full md:max-w-xs ">
             <span className="font-extrabold text-2xl md:text-[32px] text-center md:text-left md:w-auto flex-1 md:flex-none order-2 md:order-1">
