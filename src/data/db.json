@@ -4,9 +4,10 @@
       "id": 1,
       "name": "Classic T-Shirt",
       "category": "T-Shirts",
+      "dressStyle": "Casual",
       "price": 120,
       "sale": 20,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Large", "X-Large"],
       "color": ["Black", "White", "Blue"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7.png",
       "images": [
@@ -21,9 +22,10 @@
       "id": 2,
       "name": "CHECKERED SHIRT",
       "category": "Hoodies",
+      "dressStyle": "Casual",
       "price": 200,
       "sale": 15,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Medium", "Large"],
       "color": ["Gray", "Black"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1.png",
       "images": [
@@ -38,8 +40,9 @@
       "id": 3,
       "name": "Slim Fit Jeans",
       "category": "Jeans",
+      "dressStyle": "Formal",
       "price": 150,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Large", "X-Large"],
       "color": ["Blue", "Black"],
       "sale": 10,
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8.png",
@@ -55,9 +58,10 @@
       "id": 4,
       "name": "SLEEVE STRIPED T-SHIRT",
       "category": "T-Shirts",
+      "dressStyle": "Casual",
       "price": 200,
       "sale": 30,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Medium", "Large"],
       "color": ["White", "Black", "Red"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-10.png",
       "images": [
@@ -72,9 +76,10 @@
       "id": 5,
       "name": "SLEEVE STRIPED T-SHIRT",
       "category": "Hoodies",
+      "dressStyle": "Casual",
       "price": 180,
       "sale": 25,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Large", "X-Large"],
       "color": ["Black", "Gray", "Green"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-7-1.png",
       "images": [
@@ -89,9 +94,10 @@
       "id": 6,
       "name": "COURAGE GRAPHIC T-SHIRT",
       "category": "T-Shirts",
+      "dressStyle": "Formal",
       "price": 140,
       "sale": 10,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Medium",  "X-Large"],
       "color": ["White"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-8-2.png",
       "images": [
@@ -106,9 +112,10 @@
       "id": 7,
       "name": "LOOSE FIT BERMUDA SHORTS",
       "category": "SHORTS",
+      "dressStyle": "Party",
       "price": 250,
       "sale": 20,
-      "size": ["Small", "Medium", "Large", "X-Large"],
+      "size": ["Small", "Large", "X-Large"],
       "color": ["Blue", "Black"],
       "image": "https://miyamoto-fashion.infinityfreeapp.com/wp-content/uploads/2025/07/image-9-1-1.png",
       "images": [
@@ -123,6 +130,7 @@
       "id": 8,
       "name": "FADED SKINNY JEANS",
       "category": "JEANS",
+      "dressStyle": "Formal",
       "price": 220,
       "sale": 15,
        "size": ["Small", "Medium", "Large", "X-Large"],
@@ -140,11 +148,12 @@
     "id": 9,
     "name": "CLASSIC WHITE T-SHIRT",
     "category": "T-SHIRT",
+    "dressStyle": "Formal",
     "price": 45,
     "sale": 10,
-  "size": ["Small", "Medium", "Large", "X-Large"],
+  "size": ["Small",  "Large", "X-Large"],
     "color": ["White", "Black", "Gray"],
-    "image": "https://www.sunspel.com/cdn/shop/files/mtsh0001-whaa-1_887d1cc2-951e-4812-97be-04f6a5098919.jpg?v=1753793209&width=1150",
+    "image": "https://tailwind-shopco.netlify.app/images/you_might_also_like/02.webp",
     "images": [
       "https://www.buyworkwear.co.uk/cdn/shop/products/UC301-WH-L.jpg?v=1684765810",
       "https://www.rollingstone.com/wp-content/uploads/2025/08/A33280031-dynamic1-pdp.webp?w=1024"
@@ -157,11 +166,12 @@
   "id": 11,
   "name": "GRAPHIC PRINT T-SHIRT",
   "category": "T-SHIRT",
+  "dressStyle": "Formal",
   "price": 60,
   "sale": 20,
-   "size": ["Small", "Medium", "Large", "X-Large"],
+   "size": ["Small", "Medium",  "X-Large"],
   "color": ["White", "Black"],
-  "image": "https://www.gant.se/dw/image/v2/BFLN_PRD/on/demandware.static/-/Sites-gant-master/default/dwd6fc3395/PhotoStudio/time__1729516514__202404-2003292-433-flat-fv-1.jpg?sw=1440",
+  "image": "https://tailwind-shopco.netlify.app/images/you_might_also_like/03.webp",
   "images": [
     "https://www.gant.dk/dw/image/v2/BFLN_PRD/on/demandware.static/-/Sites-gant-master/default/dw0839bda6/PhotoStudio/time__1700905242__202401-2033016-093-flat-fv-1.jpg?sw=650",
     "https://gomez.pl/assets/photo/align-tc/upload/product/326/26-04-2024m04795-1-scale-200-200.jpg.webp"
@@ -174,11 +184,12 @@
   "id": 12,
   "name": "SPORT PERFORMANCE T-SHIRT",
   "category": "T-SHIRT",
+  "dressStyle": "Gym",
   "price": 50,
   "sale": 5,
-   "size": ["Small", "Medium", "Large", "X-Large"],
+   "size": ["Small", "Medium", "Large"],
   "color": ["Blue", "Black", "Gray"],
-  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkUCHVXW-ZCjtF461L9gkjlJF4xNuRgpBxJQ&s",
+  "image": "https://tailwind-shopco.netlify.app/images/you_might_also_like/04.webp",
   "images": [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJwQeyuGEl2DPWBtc8oYK8RvEfyuXBdBUikw&s",
     "https://slimages.macysassets.com/is/image/MCY/products/4/optimized/3414084_fpx.tif?$filterlrg$&wid=327"
@@ -191,11 +202,12 @@
   "id": 13,
   "name": "MINIMAL LOGO T-SHIRT",
   "category": "T-SHIRT",
+  "dressStyle": "Gym",
   "price": 48,
   "sale": 0,
-   "size": ["Small", "Medium", "Large", "X-Large"],
+   "size": ["Small",  "X-Large"],
   "color": ["White", "Black", "Beige"],
-  "image": "https://rlv.zcache.com/photography_camera_modern_minimal_logo_t_shirt-rec4787a681924940ad3cdae13c5b0b65_jyr60_644.jpg",
+  "image": "https://tailwind-shopco.netlify.app/images/you_might_also_like/01.webp",
   "images": [
     "https://www.mezaldy.com/wp-content/uploads/2025/07/arbor-antwerp-minimal-logo-t-shirt-wit.jpg",
     "https://rlv.zcache.com/photography_camera_modern_minimal_logo_t_shirt-rec4787a681924940ad3cdae13c5b0b65_k2gmm_644.jpg"
@@ -233,6 +245,62 @@
       "rating": 3,
       "productId": "2",
       "review": "The hoodie looks really good and fits nicely, but I feel like the fabric could be a little softer. It's still comfortable, but compared to some other hoodies I own it's slightly less cozy. That said, the design is great and it pairs well with jeans or sweatpants."
-    }
+    },
+    {
+  "id": "5",
+  "user": "James Anderson",
+  "rating": 5,
+  "productId": "3",
+  "review": "These jeans fit perfectly and feel very comfortable throughout the day. The material has just the right amount of stretch which makes moving around easy. I also like the slim design because it looks modern without feeling too tight."
+},
+{
+  "id": "6",
+  "user": "Olivia Martinez",
+  "rating": 4,
+  "productId": "4",
+  "review": "The striped t-shirt looks very stylish and the colors are vibrant. It pairs really well with both jeans and shorts. The fabric is light and breathable which makes it great for warmer weather."
+},
+{
+  "id": "7",
+  "user": "William Brown",
+  "rating": 5,
+  "productId": "7",
+  "review": "These shorts are incredibly comfortable and perfect for summer. The fabric feels light and the fit is relaxed without looking baggy. I've already worn them several times and they quickly became one of my favorite pieces."
+},
+{
+  "id": "8",
+  "user": "Ava Thompson",
+  "rating": 4,
+  "productId": "12",
+  "review": "Great performance t-shirt for workouts. It dries quickly and stays comfortable even during intense training sessions. I also appreciate the simple sporty design which makes it easy to combine with other gym clothes."
+},
+{
+  "id": "9",
+  "user": "Liam Wilson",
+  "rating": 5,
+  "productId": "5",
+  "review": "This hoodie is fantastic! Very cozy and stylish. The oversized fit is perfect for layering, and the material feels premium. Highly recommend for casual everyday wear."
+},
+{
+  "id": "10",
+  "user": "Emma Davis",
+  "rating": 4,
+  "productId": "6",
+  "review": "The graphic t-shirt looks amazing and fits true to size. The cotton is soft and breathable. I just wish it came in more colors."
+},
+{
+  "id": "11",
+  "user": "Noah Miller",
+  "rating": 5,
+  "productId": "8",
+  "review": "These skinny jeans are excellent! They are very comfortable and stretchy, and the color doesn't fade after washing. Perfect for both casual and semi-formal outfits."
+},
+{
+  "id": "12",
+  "user": "Sophia Lee",
+  "rating": 3,
+  "productId": "11",
+  "review": "The graphic print t-shirt is stylish and eye-catching, but the fabric feels a bit thin. Still, it looks great when paired with jeans or shorts."
+}
   ]
 }

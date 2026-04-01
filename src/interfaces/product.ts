@@ -2,6 +2,7 @@ export interface Product {
   id: number;
   name: string;
   category: string;
+  dressStyle: string;
   price: number;
   sale?: number;
   size: string[];

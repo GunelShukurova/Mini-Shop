@@ -3,24 +3,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { Product } from "../interfaces/product";
 import { getAllProducts, getProductById } from "../services/product/requests";
 import { IoIosStar } from "react-icons/io";
+import { MdOutlineStarBorder } from "react-icons/md";
 import CheckIcon from "@mui/icons-material/Check";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
 import type { Review } from "../interfaces/review";
 import { getAllReviews } from "../services/review/request";
-import { IoIosArrowDown } from "react-icons/io";
-
-import { MdOutlineStarBorder } from "react-icons/md";
+import useBasket from "../context/CartContext/cartContext";
+import useFavorites from "../context/FavoritesContext/favoritesContext";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [products, setProducts] = useState<Product[]>([]); // массив товаров
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const { addToCart } = useBasket();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const navigate = useNavigate();
 
-  // В useEffect
   useEffect(() => {
     if (!id) return;
 
@@ -28,19 +34,18 @@ const ProductDetail = () => {
       try {
         const productData = await getProductById(id);
         const reviewsData = await getAllReviews();
-        const allProducts = await getAllProducts(); // получаем все продукты
+        const allProducts = await getAllProducts();
 
         if (productData) {
           setProduct(productData);
-          setSelectedImage(productData.image); // сразу выбранное изображение
+          setSelectedImage(productData.image);
+          setSelectedSize(productData.size?.[0] || null);
+          setSelectedColor(productData.color?.[0] || null);
         }
 
-        if (allProducts) {
-          setProducts(allProducts); // сохраняем все продукты
-        }
+        if (allProducts) setProducts(allProducts);
 
-        const filteredReviews =
-          reviewsData?.filter((rev) => rev.productId === id) || [];
+        const filteredReviews = reviewsData?.filter((rev) => rev.productId === id) || [];
         setReviews(filteredReviews);
       } catch (error) {
         console.log(error);
@@ -51,251 +56,224 @@ const ProductDetail = () => {
   }, [id]);
 
   if (!product) return <div>Loading...</div>;
+
   return (
     <div>
-      <div className="p-4 pt-14 sm:pt-28 lg:pt-22 flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 sm:px-10 lg:px-75  ">
+      {/* Product Info */}
+      <div className="p-4 pt-14 sm:pt-28 lg:pt-22 flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 sm:px-10 lg:px-75">
+        {/* Images */}
         <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
           <div className="flex flex-col lg:flex-row w-full gap-3">
-            {/* Большое изображение */}
             <img
               className="w-full max-w-2xl h-60 sm:h-72 md:h-80 lg:h-[470px] object-cover rounded-xl mb-3 lg:mb-0 order-1 lg:order-2"
               src={selectedImage || product.image}
               alt={product.name}
             />
 
-            {/* Маленькие изображения */}
             <div className="flex flex-row lg:flex-col gap-3 order-2 lg:order-1 lg:w-28">
-              <img
-                onClick={() => setSelectedImage(product.image)}
-                className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
-                  selectedImage === product.image || !selectedImage
-                    ? "border-black"
-                    : "border-transparent"
-                }`}
-                src={product.image}
-                alt={product.name}
-              />
-
-              <img
-                onClick={() =>
-                  setSelectedImage(product.images?.[0] ?? product.image)
-                }
-                className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
-                  selectedImage === (product.images?.[0] ?? product.image)
-                    ? "border-black"
-                    : "border-transparent"
-                }`}
-                src={product.images?.[0] ?? product.image}
-                alt={product.name}
-              />
-
-              <img
-                onClick={() =>
-                  setSelectedImage(product.images?.[1] ?? product.image)
-                }
-                className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
-                  selectedImage === (product.images?.[1] ?? product.image)
-                    ? "border-black"
-                    : "border-transparent"
-                }`}
-                src={product.images?.[1] ?? product.image}
-                alt={product.name}
-              />
+              {[product.image, product.images?.[0], product.images?.[1]].map((img, index) =>
+                img ? (
+                  <img
+                    key={index}
+                    onClick={() => setSelectedImage(img)}
+                    className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
+                      selectedImage === img ? "border-black" : "border-transparent"
+                    }`}
+                    src={img}
+                    alt={product.name}
+                  />
+                ) : null
+              )}
             </div>
           </div>
         </div>
 
+        {/* Product Details */}
         <div className="flex flex-col gap-4 text-gray-700 w-full lg:w-[420px] xl:w-[750px] bg-white rounded-lg lg:h-[29vw]">
-          <span className="text-2xl sm:text-2xl text-gray-900 font-extrabold">
-            {product.name}
-          </span>
+          <span className="text-2xl sm:text-2xl text-gray-900 font-extrabold">{product.name}</span>
           <div className="flex gap-1">
             <div className="text-amber-300 flex text-xl">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
+              {[...Array(5)].map((_, i) => (
+                <IoIosStar key={i} />
+              ))}
             </div>
             <span className="text-sm text-gray-600">4.5/5</span>
           </div>
-          <div>
-            <span className="text-2xl font-bold"> ${product.price}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-bold">
+              $
+              {product.sale
+                ? product.price - (product.price * product.sale) / 100
+                : product.price}
+            </span>
+            {product.sale ? (
+              <>
+                <span className="text-xl text-gray-400 line-through">
+                  ${product.price}
+                </span>
+           <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
+                  -{product.sale}%
+                </span>
+              </>
+            ) : null}
           </div>
           <div>
             <p className="text-gray-500 text-xl">{product.description}</p>
           </div>
-          <div className="border-b border-gray-200 "></div>
+
+          <div className="border-b border-gray-200"></div>
+
+          {/* Colors */}
           <div>
             <span className="text-xl text-gray-500">Select Colors</span>
           </div>
           <div className="flex gap-5">
-            <button className="bg-[#4F4631] text-white h-8 w-8 flex items-center justify-center rounded-full">
-              <CheckIcon className="text-md" />
-            </button>
-            <button className="bg-[#31344F] text-white h-8 w-8 flex items-center justify-center rounded-full">
-              <CheckIcon className="text-md" />
-            </button>
-            <button className="bg-[#314F4A] text-white h-8 w-8 flex items-center justify-center rounded-full">
-              <CheckIcon className="text-md" />
-            </button>
+            {product.color?.map((color) => (
+              <button
+                key={color}
+                className={`h-8 w-8 rounded-full flex items-center justify-center cursor-pointer ${
+                  selectedColor === color ? "border-2 border-black" : ""
+                }`}
+                style={{ backgroundColor: color }}
+                onClick={() => setSelectedColor(color)}
+              >
+                {selectedColor === color && <CheckIcon className="text-white text-sm" />}
+              </button>
+            ))}
           </div>
-          <div className="border-b border-gray-200 "></div>
+
+          <div className="border-b border-gray-200"></div>
+
+          {/* Sizes */}
           <div>
             <span className="text-lg text-gray-500">Choose Size</span>
           </div>
           <div className="flex gap-3">
-            {product.size?.map((size, index) => (
+            {product.size?.map((size) => (
               <button
-                key={index}
-                className="text-lg font-light text-gray-500 bg-[#F0F0F0] px-6 py-2 rounded-full"
+                key={size}
+                className={`text-lg font-light px-6 py-2 rounded-full ${
+                  selectedSize === size ? "bg-black text-white" : "bg-[#F0F0F0] text-gray-500"
+                }`}
+                onClick={() => setSelectedSize(size)}
               >
                 {size}
               </button>
             ))}
           </div>
-          <div className="border-b border-gray-200 "></div>
+
+          <div className="border-b border-gray-200"></div>
+
+          {/* Quantity + Add to Cart */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex gap-7 bg-[#F0F0F0] w-full sm:w-40 px-7 py-1 rounded-full text-2xl justify-center items-center">
-              <span>
+              <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}>
                 <FiMinus />
-              </span>
-              <span>0</span>
-              <span>
+              </button>
+              <span>{quantity}</span>
+              <button onClick={() => setQuantity((prev) => prev + 1)}>
                 <GoPlus />
-              </span>
+              </button>
             </div>
 
-            <button className="w-full sm:flex-1 bg-black text-white h-13 rounded-full">
+            <button
+              className="w-full sm:flex-1 bg-black text-white h-13 rounded-full"
+              onClick={() => {
+                if (!product || !selectedSize || !selectedColor) return;
+                addToCart(
+                  {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    sale: product.sale,
+                    image: product.image,
+                    size: selectedSize,
+                    color: selectedColor,
+                  },
+                  quantity
+                );
+              }}
+            >
               Add To Cart
             </button>
           </div>
         </div>
       </div>
 
-      <section>
-        <div className="flex flex-wrap justify-center gap-6 lg:gap-12 mb-20 mt-10">
-          <div className="flex flex-col items-center">
-            <span className="text-xl text-gray-500 font-light">
-              Product Details
-            </span>
-            <div className="border-b  w-100 border-gray-200 mt-2 rounded"></div>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <span className="text-xl text-gray-700 font-normal">
-              Rating & Reviews
-            </span>
-            <div className="border-b  w-100 border-gray-400 mt-2 rounded"></div>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <span className="text-xl text-gray-500 font-light">FAQs</span>
-            <div className="border-b  w-100 border-gray-200 mt-2 rounded"></div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="flex items-center justify-between flex-wrap gap-4 mx-4 sm:mx-10 lg:mx-20 xl:mx-76 mb-10">
-          {/* Левая часть */}
-          <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-normal">All Reviews</h2>
-            <span className="text-gray-400">({reviews.length})</span>
-          </div>
-
-          {/* Правая часть */}
-          <div className="flex gap-4 flex-wrap">
-            <button className="flex items-center justify-center gap-2 font-light border border-gray-300 w-[160px] h-[48px] rounded-full">
-              Latest
-              <IoIosArrowDown />
-            </button>
-
-            <button className="font-light border border-gray-300 w-[180px] h-[48px] rounded-full bg-black text-white">
-              Write a Review
-            </button>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mx-4 sm:mx-10 lg:mx-20 xl:mx-76 gap-6 sm:gap-8 lg:gap-12">
+      {/* Reviews */}
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold text-center mb-5">All Reviews ({reviews.length})</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-4 sm:mx-10 lg:mx-20">
           {reviews.map((rev) => (
-            <div
-              key={rev.id}
-              className="w-full border border-gray-200 rounded-2xl p-6 flex flex-col gap-2 h-auto sm:h-60"
-            >
-              {/* Рейтинг */}
+            <div key={rev.id} className="w-full border border-gray-200 rounded-2xl p-6 flex flex-col gap-2 h-auto sm:h-60">
               <div className="text-amber-300 flex text-lg">
-                {[...Array(5)].map((_, index) =>
-                  index < rev.rating ? (
-                    <IoIosStar key={index} />
-                  ) : (
-                    <MdOutlineStarBorder key={index} />
-                  ),
-                )}
+                {[...Array(5)].map((_, i) => (i < rev.rating ? <IoIosStar key={i} /> : <MdOutlineStarBorder key={i} />))}
               </div>
-
-              {/* Пользователь */}
               <div className="flex gap-2 items-center mt-2">
-                <span className="text-lg sm:text-xl font-medium">
-                  {rev.user}
-                </span>
+                <span className="text-lg sm:text-xl font-medium">{rev.user}</span>
                 <button className="bg-green-600 text-white h-5 w-5 flex items-center justify-center rounded-full">
                   <CheckIcon className="text-xs p-1" />
                 </button>
               </div>
-
-              {/* Текст отзыва */}
-              <p className="font-light text-gray-500 text-sm sm:text-base mt-2">
-                "{rev.review}"
-              </p>
+              <p className="font-light text-gray-500 text-sm sm:text-base mt-2">"{rev.review}"</p>
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-10">
-          <button className="font-light border border-gray-300 w-[180px] sm:w-[210px] h-[48px] sm:h-[52px] rounded-full">
-            Load More Reviews
-          </button>
+      </section>
+
+      {/* You Might Also Like */}
+      <section className="mt-10">
+        <h2 className="text-2xl md:text-4xl font-extrabold text-center mt-10">YOU MIGHT ALSO LIKE</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-10 justify-items-center px-5 md:px-20 xl:px-70">
+          {products
+            ?.filter((pro) => pro.category === product?.category && pro.id !== product.id)
+            .map((pro) => (
+              <div
+                key={pro.id}
+                className="flex flex-col cursor-pointer h-[500px] sm:h-[520px] lg:h-[550px] w-full sm:w-80"
+                onClick={() => navigate(`/product/${pro.id}`)}
+              >
+                <div className="relative h-[60%]">
+                  <img className="w-full h-full object-cover rounded-2xl" src={pro.image} alt={pro.name} />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-red-500 shadow"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      toggleFavorite(pro);
+                    }}
+                  >
+                    {isFavorite(pro.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+                  </button>
+                </div>
+                <div className="mt-5 flex flex-col h-[40%]">
+                  <span className="font-semibold">{pro.name}</span>
+                  <div className="flex gap-2 items-center">
+                    <div className="text-amber-300 flex text-lg">
+                      <IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar />
+                    </div>
+                    <span className="text-sm text-gray-600">4.5/5</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl font-semibold">
+                      ${pro.sale ? pro.price - (pro.price * pro.sale) / 100 : pro.price}
+                    </span>
+                    {pro.sale ? (
+                      <>
+                        <span className="text-sm text-gray-400 line-through">
+                          ${pro.price}
+                        </span>
+                        <span className="text-xs font-semibold text-red-500">
+                          -{pro.sale}%
+                        </span>
+                      </>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </section>
-   <section>
-  <h2 className="text-2xl md:text-4xl font-extrabold text-center mt-10">
-    YOU MIGHT ALSO LIKE
-  </h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-10 justify-items-center px-5 md:px-20 xl:px-70">
-    {products
-      ?.filter(
-        (pro) =>
-          pro.category === product?.category && pro.id !== product.id,
-      )
-      .map((pro) => (
-        <div
-          key={pro.id}
-          className="flex flex-col cursor-pointer h-[500px] sm:h-[520px] lg:h-[550px] w-full sm:w-80"
-          onClick={() => navigate(`/${pro.id}`)}
-        >
-          <img
-            className="w-full h-[60%] object-cover rounded-2xl"
-            src={pro.image}
-            alt={pro.name}
-          />
-          <div className="mt-5 flex flex-col h-[40%]">
-            <span className="font-semibold">{pro.name}</span>
-            <div className="flex gap-2 items-center">
-              <div className="text-amber-300 flex text-lg">
-                <IoIosStar />
-                <IoIosStar />
-                <IoIosStar />
-                <IoIosStar />
-                <IoIosStar />
-              </div>
-              <span className="text-sm text-gray-600">4.5/5</span>
-            </div>
-            <span className="text-xl font-semibold">
-              ${pro.sale ? pro.price - (pro.price * pro.sale) / 100 : pro.price}
-            </span>
-          </div>
-        </div>
-      ))}
-  </div>
-</section>
     </div>
   );
 };

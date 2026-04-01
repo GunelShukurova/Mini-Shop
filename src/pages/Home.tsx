@@ -2,15 +2,32 @@ import { useEffect, useState } from "react";
 import image from "./../assets/photo/b26fea69ccfd8aa5825862cdb9604a4fb4930464.jpg";
 import { IoIosStar } from "react-icons/io";
 import { getAllProducts } from "../services/product/requests";
+import { getAllReviews } from "../services/review/request";
 import type { Product } from "../interfaces/product";
+import type { Review } from "../interfaces/review";
 import { useNavigate } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
+import { MoveLeft } from "lucide-react";
+import { MoveRight } from "lucide-react";
+import useFavorites from "../context/FavoritesContext/favoritesContext";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>();
+  const [reviews, setReviews] = useState<Review[]>([]);
   const navigate = useNavigate();
-const [showAllCustomers, setShowAllCustomers] = useState(false);
-const visibleCount = 4;
+  const { toggleFavorite, isFavorite } = useFavorites();
+const [showAllNewArrivals, setShowAllNewArrivals] = useState(false);
+const [showAllTopSelling, setShowAllTopSelling] = useState(false);
+  const visibleCards = 5;
+  const cardWidth = 400; // Немного увеличим или оставим ваше
+  const cardGap = 20;
+  const maxIndex = Math.max(reviews.length - visibleCards, 0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const previewOffset = cardWidth / 2;
+  const sliderViewportWidth = cardWidth * 4 + cardGap * 4;
+
+  const visibleCount = 4;
   useEffect(() => {
     const loadProduct = async () => {
       try {
@@ -22,6 +39,22 @@ const visibleCount = 4;
     };
     loadProduct();
   }, []);
+
+  useEffect(() => {
+    const loadReviews = async () => {
+      try {
+        const reviewsData = await getAllReviews();
+        setReviews(reviewsData || []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    loadReviews();
+  }, []);
+
+  useEffect(() => {
+    setCurrentIndex((prev) => Math.min(prev, maxIndex));
+  }, [maxIndex]);
 
   return (
     <div>
@@ -212,18 +245,31 @@ const visibleCount = 4;
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
             {products
-              ?.slice(0, showAllCustomers ? products.length : visibleCount).filter((product) => product.isNewArrivals)
+              ?.slice(0, showAllNewArrivals ? products.length : visibleCount)
+              .filter((product) => product.isNewArrivals)
               .map((product) => (
                 <div
                   key={product.id}
                   className="flex flex-col cursor-pointer"
-                  onClick={() => navigate(`/${product.id}`)}
+                  onClick={() => navigate(`product/${product.id}`)}
                 >
-                  <img
-                    className="w-full sm:w-80 rounded-2xl"
-                    src={product.image}
-                    alt={product.name}
-                  />
+                  <div className="relative w-full sm:w-80">
+                    <img
+                      className="w-full rounded-2xl"
+                      src={product.image}
+                      alt={product.name}
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-red-500 shadow"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        toggleFavorite(product);
+                      }}
+                    >
+                      {isFavorite(product.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+                    </button>
+                  </div>
                   <div className="mt-5 flex flex-col">
                     <span className="font-semibold">{product.name}</span>
                     <div className="flex gap-2 items-center">
@@ -236,79 +282,117 @@ const visibleCount = 4;
                       </div>
                       <span className="text-sm text-gray-600">4.5/5</span>
                     </div>
-                    <span className="text-xl font-semibold">
-                      $
-                      {product.sale
-                        ? product.price - (product.price * product.sale) / 100
-                        : product.price}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-semibold">
+                        $
+                        {product.sale
+                          ? product.price - (product.price * product.sale) / 100
+                          : product.price}
+                      </span>
+                      {product.sale ? (
+                        <>
+                          <span className="text-xl text-gray-400 line-through">
+                            ${product.price}
+                          </span>
+                          <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
+                            -{product.sale}%
+                          </span>
+                        </>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               ))}
           </div>
 
-        <div className="flex justify-center mt-10">
-  {!showAllCustomers && (
-    <button
-      onClick={() => setShowAllCustomers(true)}
-      className="font-light border border-gray-300 w-[180px] sm:w-[210px] h-[48px] sm:h-[52px] rounded-full"
-    >
-      View All
-    </button>
-  )}
-</div>
+          <div className="flex justify-center mt-10">
+        {!showAllNewArrivals && (
+              <button
+                onClick={() => setShowAllNewArrivals(true)}
+                className="font-light border border-gray-300 w-[180px] sm:w-[210px] h-[48px] sm:h-[52px] rounded-full"
+              >
+                View All
+              </button>
+            )}
+          </div>
         </div>
         <hr className="my-16 border-gray-200 mx-30" />
         <div className="px-5 md:px-20 mt-20">
           <h2 className="text-4xl font-extrabold text-center mt-10">
             TOP SELLING
           </h2>
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
-  {products
-    ?.filter((p) => p.isTopSelling) // сначала фильтруем
-    .slice(0, showAllCustomers ? undefined : visibleCount) // потом срез
-    .map((product) => (
-      <div
-        key={product.id}
-        className="flex flex-col cursor-pointer"
-        onClick={() => navigate(`/${product.id}`)}
-      >
-        <img
-          className="w-full sm:w-80 rounded-2xl"
-          src={product.image}
-          alt={product.name}
-        />
-        <div className="mt-5 flex flex-col">
-          <span className="font-semibold">{product.name}</span>
-          <div className="flex gap-2 items-center">
-            <div className="text-amber-300 flex text-lg">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-            </div>
-            <span className="text-sm text-gray-600">4.5/5</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
+            {products
+              ?.filter((p) => p.isTopSelling) // сначала фильтруем
+              .slice(0, showAllTopSelling ? undefined : visibleCount) // потом срез
+              .map((product) => (
+                <div
+                  key={product.id}
+                  className="flex flex-col cursor-pointer"
+                  onClick={() => navigate(`product/${product.id}`)}
+                >
+                  <div className="relative w-full sm:w-80">
+                    <img
+                      className="w-full rounded-2xl"
+                      src={product.image}
+                      alt={product.name}
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-red-500 shadow"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        toggleFavorite(product);
+                      }}
+                    >
+                      {isFavorite(product.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+                    </button>
+                  </div>
+                  <div className="mt-5 flex flex-col">
+                    <span className="font-semibold">{product.name}</span>
+                    <div className="flex gap-2 items-center">
+                      <div className="text-amber-300 flex text-lg">
+                        <IoIosStar />
+                        <IoIosStar />
+                        <IoIosStar />
+                        <IoIosStar />
+                        <IoIosStar />
+                      </div>
+                      <span className="text-sm text-gray-600">4.5/5</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-semibold">
+                        $
+                        {product.sale
+                          ? product.price - (product.price * product.sale) / 100
+                          : product.price}
+                      </span>
+                      {product.sale ? (
+                        <>
+                          <span className="text-xl text-gray-400 line-through">
+                            ${product.price}
+                          </span>
+             <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
+                            -{product.sale}%
+                          </span>
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
-          <span className="text-xl font-semibold">
-            ${product.sale ? product.price - (product.price * product.sale) / 100 : product.price}
-          </span>
-        </div>
-      </div>
-    ))}
-</div>
 
-     
-        <div className="flex justify-center mt-10">
-  {!showAllCustomers && (
-    <button
-      onClick={() => setShowAllCustomers(true)}
-      className="font-light border border-gray-300 w-[180px] sm:w-[210px] h-[48px] sm:h-[52px] rounded-full"
-    >
-      View All
-    </button>
-  )}
-</div>
+          <div className="flex justify-center mt-10">
+            {!showAllTopSelling && (
+              <button
+                onClick={() => setShowAllTopSelling(true)}
+                className="font-light border border-gray-300 w-[180px] sm:w-[210px] h-[48px] sm:h-[52px] rounded-full"
+              >
+                View All
+              </button>
+            )}
+          </div>
         </div>
         <section className="w-[90vw] md:w-[85vw] py-12 bg-[#F0F0F0] flex flex-col mx-auto rounded-3xl mt-20 p-6 md:p-20">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
@@ -328,7 +412,7 @@ const visibleCount = 4;
 
             <div className="relative rounded-2xl overflow-hidden col-span-1 lg:col-span-2">
               <img
-                src="https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-model-sexy-modern-man-dressed-black-elegant-suit-fashion-male-posing-studio-near-white-wall_158538-27218.jpg"
+                src="https://tailwind-shopco.netlify.app/images/dress_style/dress_style_2.webp"
                 className="w-full h-48 md:h-60 object-cover object-[70%_10%]"
               />
               <span className="absolute top-4 left-4 text-xl md:text-3xl font-semibold bg-white/80 px-3 py-1 rounded">
@@ -357,109 +441,84 @@ const visibleCount = 4;
             </div>
           </div>
         </section>
-          <section className="min-h-[40vh] px-4 sm:px-10 lg:px-35">
-        <h2 className="text-2xl md:text-4xl font-extrabold mt-20 text-center lg:text-left">
-          OUR HAPPY CUSTOMERS
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
-          {/* Card 1 */}
-          <div className="w-full max-w-[380px] border border-gray-200 rounded-2xl p-6 flex flex-col gap-2">
-            <div className="text-amber-300 flex text-lg">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-            </div>
-            <div className="flex gap-1 items-center">
-              <span>Sarah M.</span>
-              <div>
-            <button className="bg-green-600 text-white h-5 w-5  flex items-center justify-center rounded-full">
-              <CheckIcon className="text-xs p-1" />
-            </button>
-          </div>
-            </div>
-            <div>
-              <p className="font-light text-gray-500">
-                "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.”
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="w-full max-w-[380px] border border-gray-200 rounded-2xl p-6 flex flex-col gap-2">
-            <div className="text-amber-300 flex text-lg">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-            </div>
-            <div className="flex gap-1 items-center">
-              <span>Alex K.</span>
-         <div>
-            <button className="bg-green-600 text-white h-5 w-5  flex items-center justify-center rounded-full">
-              <CheckIcon className="text-xs p-1" />
-            </button>
-          </div>
-            </div>
-            <div>
-              <p className="font-light text-gray-500">
-            "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.”
-              </p>
+        <section className="min-h-[40vh] px-4 sm:px-10 lg:px-35">
+          <div className="flex justify-between items-center  ">
+            <h2 className="text-2xl md:text-4xl font-extrabold mt-20 text-center lg:text-left">
+              OUR HAPPY CUSTOMERS
+            </h2>
+            <div className="flex gap-5 mt-10">
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentIndex((prev) =>
+                    prev === 0 ? maxIndex : prev - 1
+                  )
+                }
+                className="rounded-full border border-gray-200 p-2 transition hover:bg-gray-100"
+                aria-label="Previous testimonials"
+              >
+                <MoveLeft />
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentIndex((prev) =>
+                    prev === maxIndex ? 0 : prev + 1
+                  )
+                }
+                className="rounded-full border border-gray-200 p-2 transition hover:bg-gray-100"
+                aria-label="Next testimonials"
+              >
+                <MoveRight />
+              </button>
             </div>
           </div>
 
-          {/* Card 3 */}
-          <div className="w-full max-w-[380px] border border-gray-200 rounded-2xl p-6 flex flex-col gap-2">
-            <div className="text-amber-300 flex text-lg">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-            </div>
-            <div className="flex gap-1 items-center">
-              <span>Emma W.</span>
-           <div>
-            <button className="bg-green-600 text-white h-5 w-5  flex items-center justify-center rounded-full">
-              <CheckIcon className="text-xs p-1" />
-            </button>
-          </div>
-            </div>
-            <div>
-              <p className="font-light text-gray-500">
-               "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.”
-              </p>
-            </div>
-          </div>
+        <div className="relative w-full overflow-hidden mt-10">
+          <div className="mx-auto" style={{ maxWidth: `${sliderViewportWidth}px` }}>
+            <div
+              className="flex gap-5 transition-transform duration-300"
+              style={{
+                width: `${reviews.length * (cardWidth + cardGap)}px`,
+                transform: `translateX(-${
+                  currentIndex * (cardWidth + cardGap) + previewOffset
+                }px)`,
+              }}
+            >
+              {reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="flex-shrink-0 border border-gray-200 rounded-2xl p-6 flex flex-col gap-2"
+                  style={{ width: `${cardWidth}px` }}
+                >
+                {/* Рейтинг звезд */}
+                <div className="text-amber-400 flex text-lg">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <IoIosStar
+                      key={i}
+                      className={i < review.rating ? "fill-current" : "text-gray-300"}
+                    />
+                  ))}
+                </div>
 
-          {/* Card 4 */}
-          <div className="w-full max-w-[380px] border border-gray-200 rounded-2xl p-6 flex flex-col gap-2">
-            <div className="text-amber-300 flex text-lg">
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-              <IoIosStar />
-            </div>
-            <div className="flex gap-1 items-center">
-              <span>Michael P.</span>
-                <div>
-            <button className="bg-green-600 text-white h-5 w-5  flex items-center justify-center rounded-full">
-              <CheckIcon className="text-xs p-1" />
-            </button>
-          </div>
-            </div>
-            <div>
-              <p className="font-light text-gray-500">
-              "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.”
-              </p>
+                {/* Имя пользователя с галочкой */}
+                <div className="flex gap-2 items-center">
+                  <span className="font-bold">{review.user}</span>
+                  <div className="bg-green-600 text-white p-0.5 rounded-full">
+                    <CheckIcon fontSize="small" />
+                  </div>
+                </div>
+
+                {/* Текст отзыва */}
+                <p className="font-light text-gray-500 line-clamp-4">
+                  "{review.review}"
+                </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+        </section>
       </div>
     </div>
   );

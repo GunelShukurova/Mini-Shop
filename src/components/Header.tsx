@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 import { IoSearchOutline } from "react-icons/io5";
 import { GrCart } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { FaBars } from "react-icons/fa6";
+import useBasket from "../context/CartContext/cartContext";
+import useFavorites from "../context/FavoritesContext/favoritesContext";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { totalItems } = useBasket();
+  const { totalFavorites } = useFavorites();
 
   return (
     <div>
@@ -39,7 +45,22 @@ const Header = () => {
         {/* Mobile Icons (Search → Cart → Profile) */}
         <div className="flex gap-3 md:hidden order-3">
           <span className="text-xl"><IoSearchOutline /></span>
-          <span className="text-xl"><GrCart /></span>
+          <Link to="/favorites" className="text-xl relative">
+            <AiOutlineHeart />
+            {totalFavorites > 0 && (
+              <span className="absolute -top-2 -right-2 h-5 min-w-5 rounded-full bg-red-600 px-1 text-xs text-white flex items-center justify-center">
+                {totalFavorites}
+              </span>
+            )}
+          </Link>
+          <Link to="/cart" className="text-xl relative">
+            <GrCart />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 h-5 min-w-5 rounded-full bg-red-600 px-1 text-xs text-white flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </Link>
           <span className="text-xl"><CgProfile /></span>
         </div>
 
@@ -66,7 +87,22 @@ const Header = () => {
 
         {/* Desktop Icons (Cart → Profile) */}
         <div className="hidden md:flex gap-5 order-6 md:order-4">
-          <span className="text-xl"><GrCart /></span>
+          <Link to="/favorites" className="text-xl relative">
+            <AiOutlineHeart />
+            {totalFavorites > 0 && (
+              <span className="absolute -top-2 -right-2 h-5 min-w-5 rounded-full bg-red-600 px-1 text-xs text-white flex items-center justify-center">
+                {totalFavorites}
+              </span>
+            )}
+          </Link>
+          <Link to="/cart" className="text-xl relative">
+            <GrCart />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 h-5 min-w-5 rounded-full bg-red-600 px-1 text-xs text-white flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </Link>
           <span className="text-xl"><CgProfile /></span>
         </div>
 
