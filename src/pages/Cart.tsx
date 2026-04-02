@@ -117,9 +117,7 @@ const Cart = () => {
             <span>Delivery Fee</span>
             <span className="font-semibold">${deliveryFee}</span>
           </div>
-
           <div className="border-t border-gray-200 mt-2"></div>
-
           <div className="flex justify-between text-lg sm:text-xl font-bold mt-2">
             <span>Total</span>
             <span className="font-semibold">${total}</span>
