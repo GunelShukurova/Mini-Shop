@@ -5,6 +5,7 @@ export interface Product {
   dressStyle: string;
   price: number;
   sale?: number;
+  rating: number;
   size: string[];
   color: string[];
   image: string;

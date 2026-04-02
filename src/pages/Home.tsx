@@ -11,23 +11,45 @@ import { MoveLeft } from "lucide-react";
 import { MoveRight } from "lucide-react";
 import useFavorites from "../context/FavoritesContext/favoritesContext";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import useSearchContext from "../context/SearchContext/searchContext";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const navigate = useNavigate();
   const { toggleFavorite, isFavorite } = useFavorites();
+  const { searchValue } = useSearchContext();
 const [showAllNewArrivals, setShowAllNewArrivals] = useState(false);
 const [showAllTopSelling, setShowAllTopSelling] = useState(false);
   const visibleCards = 5;
-  const cardWidth = 400; // Немного увеличим или оставим ваше
+  const cardWidth = 400; 
   const cardGap = 20;
   const maxIndex = Math.max(reviews.length - visibleCards, 0);
+
+  const renderRatingStars = (rating: number) => (
+    <div className="text-amber-300 flex text-lg">
+      {Array.from({ length: 5 }, (_, i) => (
+        <IoIosStar
+          key={i}
+          className={i < rating ? "fill-current" : "text-gray-300"}
+        />
+      ))}
+    </div>
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const previewOffset = cardWidth / 2;
   const sliderViewportWidth = cardWidth * 4 + cardGap * 4;
 
   const visibleCount = 4;
+  const normalizedSearch = searchValue.trim().toLowerCase();
+  const matchesSearch = (product: Product) => {
+    if (!normalizedSearch) return true;
+    return (
+      product.name.toLowerCase().includes(normalizedSearch)
+      || product.category.toLowerCase().includes(normalizedSearch)
+      || product.description.toLowerCase().includes(normalizedSearch)
+    );
+  };
   useEffect(() => {
     const loadProduct = async () => {
       try {
@@ -58,9 +80,9 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
 
   return (
     <div>
-      <div className="bg-[#F2F0F1] mt-5 px-4 sm:px-10 md:px-35 h-170 overflow-hidden">
+      <div className="bg-[#F2F0F1] mt-5 px-4 sm:px-10 md:px-16 lg:px-24 xl:px-[140px] py-10 md:py-0 min-h-[520px] md:min-h-[680px] overflow-hidden">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="flex flex-col md:w-1/3 order-1 self-start gap-5  pt-10">
+          <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 order-1 self-start gap-5 pt-6 sm:pt-10">
             <p className="font-extrabold text-4xl sm:text-5xl md:text-[64px] leading-tight">
               FIND CLOTHES THAT MATCHES YOUR STYLE
             </p>
@@ -106,17 +128,15 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
               </div>
             </div>
           </div>
-
-          {/* Правый блок с изображением (на мобильных будет снизу) */}
           <div className="w-full md:w-1/2 flex justify-center relative order-2">
             <img
               src={image}
               alt="Clothes"
-              className="w-full max-w-xl object-contain z-0"
+              className="w-full max-w-[320px] sm:max-w-md md:max-w-xl object-contain z-0"
             />
 
             <svg
-              className="absolute top-[220px] right-[600px] w-14 h-14 sm:w-16 sm:h-16 md:w-14 md:h-14"
+              className="absolute top-6 left-6 sm:top-10 sm:left-12 md:top-[320px] md:left-auto md:right-[580px] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
               viewBox="0 0 56 56"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +148,7 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
             </svg>
 
             <svg
-              className="absolute top-[110px] right-[70px] w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26"
+              className="absolute top-4 right-4 sm:top-8 sm:right-8 md:top-[110px] md:right-[70px] w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24"
               viewBox="0 0 104 104"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +161,7 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
           </div>
         </div>
       </div>
-      <div className="bg-black w-full px-4 py-6 flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-55">
+      <div className="bg-black w-full px-4 py-6 flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-[55px] lg:gap-20">
         <svg
           className="h-6 w-auto sm:h-7 md:h-8"
           width="167"
@@ -245,8 +265,9 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
             {products
-              ?.slice(0, showAllNewArrivals ? products.length : visibleCount)
-              .filter((product) => product.isNewArrivals)
+              ?.filter((product) => product.isNewArrivals)
+              .filter(matchesSearch)
+              .slice(0, showAllNewArrivals ? products.length : visibleCount)
               .map((product) => (
                 <div
                   key={product.id}
@@ -273,14 +294,8 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                   <div className="mt-5 flex flex-col">
                     <span className="font-semibold">{product.name}</span>
                     <div className="flex gap-2 items-center">
-                      <div className="text-amber-300 flex text-lg">
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                      </div>
-                      <span className="text-sm text-gray-600">4.5/5</span>
+                      {renderRatingStars(product.rating)}
+                      <span className="text-sm text-gray-600">{product.rating}/5</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xl font-semibold">
@@ -323,8 +338,9 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-10 justify-items-center">
             {products
-              ?.filter((p) => p.isTopSelling) // сначала фильтруем
-              .slice(0, showAllTopSelling ? undefined : visibleCount) // потом срез
+              ?.filter((p) => p.isTopSelling)
+              .filter(matchesSearch)
+              .slice(0, showAllTopSelling ? undefined : visibleCount)
               .map((product) => (
                 <div
                   key={product.id}
@@ -351,14 +367,8 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                   <div className="mt-5 flex flex-col">
                     <span className="font-semibold">{product.name}</span>
                     <div className="flex gap-2 items-center">
-                      <div className="text-amber-300 flex text-lg">
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                        <IoIosStar />
-                      </div>
-                      <span className="text-sm text-gray-600">4.5/5</span>
+                      {renderRatingStars(product.rating)}
+                      <span className="text-sm text-gray-600">{product.rating}/5</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xl font-semibold">
@@ -491,7 +501,6 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                   className="flex-shrink-0 border border-gray-200 rounded-2xl p-6 flex flex-col gap-2"
                   style={{ width: `${cardWidth}px` }}
                 >
-                {/* Рейтинг звезд */}
                 <div className="text-amber-400 flex text-lg">
                   {Array.from({ length: 5 }, (_, i) => (
                     <IoIosStar
@@ -500,16 +509,12 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                     />
                   ))}
                 </div>
-
-                {/* Имя пользователя с галочкой */}
                 <div className="flex gap-2 items-center">
                   <span className="font-bold">{review.user}</span>
                   <div className="bg-green-600 text-white p-0.5 rounded-full">
                     <CheckIcon fontSize="small" />
                   </div>
                 </div>
-
-                {/* Текст отзыва */}
                 <p className="font-light text-gray-500 line-clamp-4">
                   "{review.review}"
                 </p>

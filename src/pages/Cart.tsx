@@ -7,11 +7,11 @@ const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useBasket();
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
   const discountTotal = cart.reduce((sum, item) => {
     if (!item.sale) return sum;
-    return sum + (item.price * item.sale) / 100 * item.quantity;
+    return sum + ((item.price * item.sale) / 100) * item.quantity;
   }, 0);
   const discountPercent = subtotal
     ? Math.round((discountTotal / subtotal) * 100)
@@ -25,16 +25,25 @@ const Cart = () => {
       </h1>
 
       <div className="flex flex-col lg:flex-row gap-10 max-h-[700px]">
-        {/* Cart Items */}
         <div className="flex-1 border border-gray-300 rounded-2xl p-5 bg-white shadow-md overflow-y-auto">
           <div className="flex flex-col gap-5">
             {cart.map((item) => (
-              <div key={item.id} className="flex flex-col sm:flex-row gap-5 sm:items-center">
-                <img className="w-full sm:w-40 rounded-2xl object-cover" src={item.image} alt={item.name} />
+              <div
+                key={item.id}
+                className="flex flex-col sm:flex-row gap-5 sm:items-center"
+              >
+                <img
+                  className="w-full sm:w-40 rounded-2xl object-cover"
+                  src={item.image}
+                  alt={item.name}
+                />
                 <div className="flex-1 flex flex-col gap-3">
                   <div className="flex justify-between items-start sm:items-center">
                     <h2 className="text-xl font-bold">{item.name}</h2>
-                    <button className="text-red-600 hover:text-red-800 transition" onClick={() => removeFromCart(item.id)}>
+                    <button
+                      className="text-red-600 hover:text-red-800 transition"
+                      onClick={() => removeFromCart(item.id)}
+                    >
                       <DeleteIcon />
                     </button>
                   </div>
@@ -60,20 +69,28 @@ const Cart = () => {
                             <span className="text-xl text-gray-400 line-through">
                               ${item.price}
                             </span>
-                              <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
+                            <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                               -{item.sale}%
                             </span>
                           </>
                         ) : null}
                       </div>
-                     
                     </div>
                     <div className="flex items-center justify-between gap-4 bg-gray-100 px-4 py-1 rounded-full w-28 text-xl">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
+                        disabled={item.quantity <= 1}
+                      >
                         <FiMinus />
                       </button>
                       <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                      >
                         <GoPlus />
                       </button>
                     </div>
@@ -83,8 +100,6 @@ const Cart = () => {
             ))}
           </div>
         </div>
-
-        {/* Order Summary */}
         <div className="w-full lg:w-116 border border-gray-300 rounded-2xl p-5 bg-white shadow-md flex-shrink-0 h-100">
           <h2 className="text-xl font-bold mb-5">Order Summary</h2>
 
@@ -94,7 +109,9 @@ const Cart = () => {
           </div>
           <div className="flex justify-between text-gray-700">
             <span>Discount (-{discountPercent}%)</span>
-            <span className="font-semibold text-red-600">-${discountTotal}</span>
+            <span className="font-semibold text-red-600">
+              -${discountTotal}
+            </span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span>Delivery Fee</span>
@@ -118,7 +135,6 @@ const Cart = () => {
               Apply
             </button>
           </div>
-
           <button className="w-full mt-3 h-12 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
             Go to Checkout
           </button>

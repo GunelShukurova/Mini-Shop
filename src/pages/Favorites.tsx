@@ -7,6 +7,17 @@ const Favorites = () => {
   const navigate = useNavigate();
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
+  const renderRatingStars = (rating: number) => (
+    <div className="text-amber-300 flex text-lg">
+      {Array.from({ length: 5 }, (_, i) => (
+        <IoIosStar
+          key={i}
+          className={i < rating ? "fill-current" : "text-gray-300"}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className="px-5 md:px-20 mt-10">
       <h2 className="text-3xl font-extrabold text-center mt-10">FAVORITES</h2>
@@ -42,14 +53,8 @@ const Favorites = () => {
               <div className="mt-5 flex flex-col">
                 <span className="font-semibold">{product.name}</span>
                 <div className="flex gap-2 items-center">
-                  <div className="text-amber-300 flex text-lg">
-                    <IoIosStar />
-                    <IoIosStar />
-                    <IoIosStar />
-                    <IoIosStar />
-                    <IoIosStar />
-                  </div>
-                  <span className="text-sm text-gray-600">4.5/5</span>
+                  {renderRatingStars(product.rating)}
+                  <span className="text-sm text-gray-600">{product.rating}/5</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-xl font-semibold">

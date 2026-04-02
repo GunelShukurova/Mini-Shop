@@ -12,6 +12,7 @@ import { getAllReviews } from "../services/review/request";
 import useBasket from "../context/CartContext/cartContext";
 import useFavorites from "../context/FavoritesContext/favoritesContext";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import useSearchContext from "../context/SearchContext/searchContext";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +26,20 @@ const ProductDetail = () => {
 
   const { addToCart } = useBasket();
   const { toggleFavorite, isFavorite } = useFavorites();
+  const { searchValue } = useSearchContext();
   const navigate = useNavigate();
+  const normalizedSearch = searchValue.trim().toLowerCase();
+
+  const renderRatingStars = (rating: number, sizeClass = "text-lg") => (
+    <div className={`text-amber-300 flex ${sizeClass}`}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <IoIosStar
+          key={i}
+          className={i < rating ? "fill-current" : "text-gray-300"}
+        />
+      ))}
+    </div>
+  );
 
   useEffect(() => {
     if (!id) return;
@@ -59,24 +73,22 @@ const ProductDetail = () => {
 
   return (
     <div>
-      {/* Product Info */}
-      <div className="p-4 pt-14 sm:pt-28 lg:pt-22 flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 sm:px-10 lg:px-75">
-        {/* Images */}
-        <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
-          <div className="flex flex-col lg:flex-row w-full gap-3">
+      <div className="p-4 pt-14 sm:pt-28 lg:pt-22 flex flex-col xl:flex-row gap-6 xl:gap-10 px-4 sm:px-10 xl:px-75">
+        <div className="flex flex-col sm:flex-row w-full xl:w-auto gap-3">
+          <div className="flex flex-col xl:flex-row w-full gap-3">
             <img
-              className="w-full max-w-2xl h-60 sm:h-72 md:h-80 lg:h-[470px] object-cover rounded-xl mb-3 lg:mb-0 order-1 lg:order-2"
+              className="w-full max-w-2xl h-60 sm:h-72 md:h-80 xl:h-[470px] xl:w-[470px] xl:max-w-none object-cover rounded-xl mb-3 xl:mb-0 order-1 xl:order-2"
               src={selectedImage || product.image}
               alt={product.name}
             />
 
-            <div className="flex flex-row lg:flex-col gap-3 order-2 lg:order-1 lg:w-28">
+            <div className="flex flex-row xl:flex-col gap-3 order-2 xl:order-1 xl:w-28">
               {[product.image, product.images?.[0], product.images?.[1]].map((img, index) =>
                 img ? (
                   <img
                     key={index}
                     onClick={() => setSelectedImage(img)}
-                    className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
+                    className={`w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
                       selectedImage === img ? "border-black" : "border-transparent"
                     }`}
                     src={img}
@@ -87,17 +99,11 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-
-        {/* Product Details */}
-        <div className="flex flex-col gap-4 text-gray-700 w-full lg:w-[420px] xl:w-[750px] bg-white rounded-lg lg:h-[29vw]">
+        <div className="flex flex-col gap-4 text-gray-700 w-full xl:w-[420px] 2xl:w-[750px] bg-white rounded-lg xl:h-[29vw]">
           <span className="text-2xl sm:text-2xl text-gray-900 font-extrabold">{product.name}</span>
           <div className="flex gap-1">
-            <div className="text-amber-300 flex text-xl">
-              {[...Array(5)].map((_, i) => (
-                <IoIosStar key={i} />
-              ))}
-            </div>
-            <span className="text-sm text-gray-600">4.5/5</span>
+            {renderRatingStars(product.rating, "text-xl")}
+            <span className="text-sm text-gray-600">{product.rating}/5</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-2xl font-bold">
@@ -122,8 +128,6 @@ const ProductDetail = () => {
           </div>
 
           <div className="border-b border-gray-200"></div>
-
-          {/* Colors */}
           <div>
             <span className="text-xl text-gray-500">Select Colors</span>
           </div>
@@ -143,8 +147,6 @@ const ProductDetail = () => {
           </div>
 
           <div className="border-b border-gray-200"></div>
-
-          {/* Sizes */}
           <div>
             <span className="text-lg text-gray-500">Choose Size</span>
           </div>
@@ -163,8 +165,6 @@ const ProductDetail = () => {
           </div>
 
           <div className="border-b border-gray-200"></div>
-
-          {/* Quantity + Add to Cart */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex gap-7 bg-[#F0F0F0] w-full sm:w-40 px-7 py-1 rounded-full text-2xl justify-center items-center">
               <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}>
@@ -199,11 +199,9 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-
-      {/* Reviews */}
       <section className="mt-10">
-        <h2 className="text-2xl font-bold text-center mb-5">All Reviews ({reviews.length})</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-4 sm:mx-10 lg:mx-20">
+        <h2 className="text-2xl font-bold mb-5 2xl:px-70" >All Reviews ({reviews.length})</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-4 sm:mx-10 lg:mx-20 2xl:mx-70">
           {reviews.map((rev) => (
             <div key={rev.id} className="w-full border border-gray-200 rounded-2xl p-6 flex flex-col gap-2 h-auto sm:h-60">
               <div className="text-amber-300 flex text-lg">
@@ -220,13 +218,19 @@ const ProductDetail = () => {
           ))}
         </div>
       </section>
-
-      {/* You Might Also Like */}
       <section className="mt-10">
         <h2 className="text-2xl md:text-4xl font-extrabold text-center mt-10">YOU MIGHT ALSO LIKE</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-10 justify-items-center px-5 md:px-20 xl:px-70">
           {products
             ?.filter((pro) => pro.category === product?.category && pro.id !== product.id)
+            .filter((pro) => {
+              if (!normalizedSearch) return true;
+              return (
+                pro.name.toLowerCase().includes(normalizedSearch)
+                || pro.category.toLowerCase().includes(normalizedSearch)
+                || pro.description.toLowerCase().includes(normalizedSearch)
+              );
+            })
             .map((pro) => (
               <div
                 key={pro.id}
@@ -249,10 +253,8 @@ const ProductDetail = () => {
                 <div className="mt-5 flex flex-col h-[40%]">
                   <span className="font-semibold">{pro.name}</span>
                   <div className="flex gap-2 items-center">
-                    <div className="text-amber-300 flex text-lg">
-                      <IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar />
-                    </div>
-                    <span className="text-sm text-gray-600">4.5/5</span>
+                    {renderRatingStars(pro.rating)}
+                    <span className="text-sm text-gray-600">{pro.rating}/5</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xl font-semibold">

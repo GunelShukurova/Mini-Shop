@@ -6,39 +6,36 @@ import { FaGithub } from "react-icons/fa";
 const Footer = () => {
   return (
     <div>
-<div className="relative z-10 -mb-24 mt-20">
-  <div className="mx-4 sm:mx-10 lg:mx-75">
-    <div className="w-full bg-black flex flex-col lg:flex-row justify-between rounded-2xl p-6 lg:h-45 gap-6">
-      
-      <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white lg:max-w-xl">
-        STAY UPTO DATE ABOUT OUR LATEST OFFERS
-      </h1>
+      <div className="relative z-10 -mb-24 mt-20">
+        <div className="mx-4 sm:mx-10 lg:mx-16 xl:mx-75">
+          <div className="w-full bg-black flex flex-col lg:flex-row justify-between items-center rounded-2xl p-6 lg:h-45 gap-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white lg:max-w-xl text-center lg:text-left">
+              STAY UPTO DATE ABOUT OUR LATEST OFFERS
+            </h1>
 
-      <div className="flex flex-col gap-4 lg:gap-5 w-full lg:w-auto">
-        
-        <div className="relative w-full lg:w-80">
-          <input
-            className="h-10 w-full bg-white rounded-full pl-10 pr-4 text-base focus:outline-none"
-            type="text"
-            placeholder="Enter your email address"
-          />
-          <GoMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+            <div className="flex flex-col gap-4 lg:gap-5 w-full lg:w-auto">
+              <div className="relative w-full lg:w-80">
+                <input
+                  className="h-10 w-full bg-white rounded-full pl-10 pr-4 text-base focus:outline-none"
+                  type="text"
+                  placeholder="Enter your email address"
+                />
+                <GoMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+              </div>
+
+              <input
+                className="h-10 w-full lg:w-80 bg-white rounded-full pl-4 pr-4 text-base focus:outline-none"
+                type="text"
+                placeholder="Subscribe to Newsletter"
+              />
+            </div>
+          </div>
         </div>
-
-        <input
-          className="h-10 w-full lg:w-80 bg-white rounded-full pl-4 pr-4 text-base focus:outline-none"
-          type="text"
-          placeholder="Subscribe to Newsletter"
-        />
-
       </div>
-    </div>
-  </div>
-</div>
-      <footer className="bg-[#F0F0F0] px-4 sm:px-10 md:px-75 py-10 w-full pt-30">
+      <footer className="bg-[#F0F0F0] px-4 sm:px-10 lg:px-16 xl:px-75 py-10 w-full pt-30">
         <div className="flex flex-col md:flex-row justify-between flex-wrap gap-10">
-          <div className="mb-10 md:mb-0 max-w-full md:max-w-xs ">
-            <span className="font-extrabold text-2xl md:text-[32px] text-center md:text-left md:w-auto flex-1 md:flex-none order-2 md:order-1">
+          <div className="mb-10 md:mb-0 max-w-full md:max-w-xs text-center md:text-left flex flex-col items-center md:items-start">
+            <span className="font-extrabold text-2xl md:text-[32px] md:w-auto flex-1 md:flex-none order-2 md:order-1">
               SHOP.CO
             </span>
             <p className="text-gray-500 mt-2 text-sm sm:text-base">
@@ -46,7 +43,7 @@ const Footer = () => {
               wear. From women to men.
             </p>
             <div>
-              <ul className="flex gap-5 mt-7">
+              <ul className="flex gap-5 mt-7 justify-center md:justify-start">
                 <li className="w-8 h-8 rounded-full border border-gray-400 px-2 py-2">
                   <FaTwitter />
                 </li>
@@ -63,7 +60,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5 min-w-[120px]">
+          <div className="flex flex-col gap-5 min-w-[120px] items-center md:items-start text-center md:text-left">
             <span className="font-light text-lg tracking-wider">Company</span>
             <ul className="text-gray-500 text-sm sm:text-base space-y-1">
               <li>About</li>
@@ -72,7 +69,7 @@ const Footer = () => {
               <li>Career</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-5 min-w-[120px]">
+          <div className="flex flex-col gap-5 min-w-[120px] items-center md:items-start text-center md:text-left">
             <span className="font-light text-lg tracking-wider">Help</span>
             <ul className="text-gray-500 text-sm sm:text-base space-y-1">
               <li>Customer Support</li>
@@ -81,7 +78,7 @@ const Footer = () => {
               <li>Privacy Policy</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-5 min-w-[120px]">
+          <div className="flex flex-col gap-5 min-w-[120px] items-center md:items-start text-center md:text-left">
             <span className="font-light text-lg tracking-wider">FAQ</span>
             <ul className="text-gray-500 text-sm sm:text-base space-y-1">
               <li>Account</li>
@@ -90,7 +87,7 @@ const Footer = () => {
               <li>Payments</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-5 min-w-[120px]">
+          <div className="flex flex-col gap-5 min-w-[120px] items-center md:items-start text-center md:text-left">
             <span className="font-light text-lg tracking-wider">Resources</span>
             <ul className="text-gray-500 text-sm sm:text-base space-y-1">
               <li>Free eBooks</li>
@@ -108,9 +105,9 @@ const Footer = () => {
               </span>
             </div>
             <ul className="flex gap-5 text-gray-600 text-sm sm:text-base flex-wrap justify-center">
-              <li>
+              <li className="w-full sm:w-auto flex justify-center sm:justify-end">
                 <svg
-                  width="300"
+                  className="w-full max-w-[300px] h-auto"
                   height="49"
                   viewBox="0 0 300 49"
                   fill="none"
