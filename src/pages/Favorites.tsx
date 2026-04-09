@@ -2,6 +2,7 @@ import { IoIosStar } from "react-icons/io";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import useFavorites from "../context/FavoritesContext/favoritesContext";
+import formatPrice from "../utils/formatPrice";
 
 const Favorites = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Favorites = () => {
               className="flex flex-col cursor-pointer"
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              <div className="relative w-full sm:w-80">
+              <div className="relative w-full sm:w-80 bg-[#F0EEED] rounded-2xl">
                 <img
                   className="w-full rounded-2xl"
                   src={product.image}
@@ -60,13 +61,15 @@ const Favorites = () => {
                   <span className="text-xl font-semibold">
                     $
                     {product.sale
-                      ? product.price - (product.price * product.sale) / 100
-                      : product.price}
+                      ? formatPrice(
+                          product.price - (product.price * product.sale) / 100,
+                        )
+                      : formatPrice(product.price)}
                   </span>
                   {product.sale ? (
                     <>
                       <span className="text-xl text-gray-400 line-through">
-                        ${product.price}
+                        ${formatPrice(product.price)}
                       </span>
                <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                         -{product.sale}%

@@ -4,15 +4,9 @@ npm install
 
 ▶️ Running the Project
 
-You need two terminals.
+The app pulls product data from https://dummyjson.com, so you only need the frontend.
 
-Terminal 1 – Run JSON Server (Fake API) npx json-server --watch db.json --port 3000
-
-This will start the backend server at:
-
-http://localhost:3000
-
-Terminal 2 – Run the Frontend npm run dev
+Terminal – Run the Frontend npm run dev
 
 The project will run at:
 

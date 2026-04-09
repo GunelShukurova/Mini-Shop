@@ -2,6 +2,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
 import useBasket from "../context/CartContext/cartContext";
+import formatPrice from "../utils/formatPrice";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useBasket();
@@ -61,13 +62,15 @@ const Cart = () => {
                         <span className="text-2xl font-bold">
                           $
                           {item.sale
-                            ? item.price - (item.price * item.sale) / 100
-                            : item.price}
+                            ? formatPrice(
+                                item.price - (item.price * item.sale) / 100,
+                              )
+                            : formatPrice(item.price)}
                         </span>
                         {item.sale ? (
                           <>
                             <span className="text-xl text-gray-400 line-through">
-                              ${item.price}
+                              ${formatPrice(item.price)}
                             </span>
                             <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                               -{item.sale}%
@@ -105,22 +108,22 @@ const Cart = () => {
 
           <div className="flex justify-between text-gray-700">
             <span>Subtotal</span>
-            <span className="font-semibold">${subtotal}</span>
+            <span className="font-semibold">${formatPrice(subtotal)}</span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span>Discount (-{discountPercent}%)</span>
             <span className="font-semibold text-red-600">
-              -${discountTotal}
+              -${formatPrice(discountTotal)}
             </span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span>Delivery Fee</span>
-            <span className="font-semibold">${deliveryFee}</span>
+            <span className="font-semibold">${formatPrice(deliveryFee)}</span>
           </div>
           <div className="border-t border-gray-200 mt-2"></div>
           <div className="flex justify-between text-lg sm:text-xl font-bold mt-2">
             <span>Total</span>
-            <span className="font-semibold">${total}</span>
+            <span className="font-semibold">${formatPrice(total)}</span>
           </div>
 
           <div className="mt-5 flex flex-col sm:flex-row gap-3">

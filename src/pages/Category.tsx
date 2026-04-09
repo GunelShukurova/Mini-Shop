@@ -12,6 +12,7 @@ import useSearchContext from "../context/SearchContext/searchContext";
 import { ArrowLeft } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import formatPrice from "../utils/formatPrice";
 
 const Category = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -307,7 +308,7 @@ const Category = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 mt-10 justify-items-center">
             {paginatedProducts.map((product) => (
               <div key={product.id} className="flex flex-col cursor-pointer">
-                <div className="relative w-full max-w-sm">
+                <div className="relative w-full max-w-sm bg-[#F0EEED] rounded-2xl">
                   <img
                     className="w-full rounded-2xl"
                     src={product.image}
@@ -338,13 +339,15 @@ const Category = () => {
                     <span className="text-xl font-semibold">
                       $
                       {product.sale
-                        ? product.price - (product.price * product.sale) / 100
-                        : product.price}
+                        ? formatPrice(
+                            product.price - (product.price * product.sale) / 100,
+                          )
+                        : formatPrice(product.price)}
                     </span>
                     {product.sale ? (
                       <>
                         <span className="text-xl text-gray-400 line-through">
-                          ${product.price}
+                          ${formatPrice(product.price)}
                         </span>
                         <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                           -{product.sale}%

@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import image from "./../assets/photo/b26fea69ccfd8aa5825862cdb9604a4fb4930464.jpg";
 import { IoIosStar } from "react-icons/io";
 import { getAllProducts } from "../services/product/requests";
-import { getAllReviews } from "../services/review/request";
 import type { Product } from "../interfaces/product";
-import type { Review } from "../interfaces/review";
 import { useNavigate } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import { MoveLeft } from "lucide-react";
@@ -12,15 +10,17 @@ import { MoveRight } from "lucide-react";
 import useFavorites from "../context/FavoritesContext/favoritesContext";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useSearchContext from "../context/SearchContext/searchContext";
+import { staticReviews } from "../data/reviews";
+import formatPrice from "../utils/formatPrice";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>();
-  const [reviews, setReviews] = useState<Review[]>([]);
   const navigate = useNavigate();
   const { toggleFavorite, isFavorite } = useFavorites();
   const { searchValue } = useSearchContext();
 const [showAllNewArrivals, setShowAllNewArrivals] = useState(false);
 const [showAllTopSelling, setShowAllTopSelling] = useState(false);
+  const reviews = staticReviews;
   const visibleCards = 5;
   const cardWidth = 400; 
   const cardGap = 20;
@@ -60,18 +60,6 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
       }
     };
     loadProduct();
-  }, []);
-
-  useEffect(() => {
-    const loadReviews = async () => {
-      try {
-        const reviewsData = await getAllReviews();
-        setReviews(reviewsData || []);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    loadReviews();
   }, []);
 
   useEffect(() => {
@@ -271,10 +259,10 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
               .map((product) => (
                 <div
                   key={product.id}
-                  className="flex flex-col cursor-pointer"
+                  className="flex flex-col cursor-pointer "
                   onClick={() => navigate(`product/${product.id}`)}
                 >
-                  <div className="relative w-full sm:w-80">
+                  <div className="relative w-full sm:w-80 bg-[#F0EEED] rounded-2xl">
                     <img
                       className="w-full rounded-2xl"
                       src={product.image}
@@ -301,13 +289,15 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                       <span className="text-xl font-semibold">
                         $
                         {product.sale
-                          ? product.price - (product.price * product.sale) / 100
-                          : product.price}
+                          ? formatPrice(
+                              product.price - (product.price * product.sale) / 100,
+                            )
+                          : formatPrice(product.price)}
                       </span>
                       {product.sale ? (
                         <>
                           <span className="text-xl text-gray-400 line-through">
-                            ${product.price}
+                            ${formatPrice(product.price)}
                           </span>
                           <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                             -{product.sale}%
@@ -344,10 +334,10 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
               .map((product) => (
                 <div
                   key={product.id}
-                  className="flex flex-col cursor-pointer"
+                  className="flex flex-col cursor-pointer "
                   onClick={() => navigate(`product/${product.id}`)}
                 >
-                  <div className="relative w-full sm:w-80">
+                  <div className="relative w-full sm:w-80 bg-[#F0EEED] rounded-2xl">
                     <img
                       className="w-full rounded-2xl"
                       src={product.image}
@@ -374,13 +364,15 @@ const [showAllTopSelling, setShowAllTopSelling] = useState(false);
                       <span className="text-xl font-semibold">
                         $
                         {product.sale
-                          ? product.price - (product.price * product.sale) / 100
-                          : product.price}
+                          ? formatPrice(
+                              product.price - (product.price * product.sale) / 100,
+                            )
+                          : formatPrice(product.price)}
                       </span>
                       {product.sale ? (
                         <>
                           <span className="text-xl text-gray-400 line-through">
-                            ${product.price}
+                            ${formatPrice(product.price)}
                           </span>
              <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                             -{product.sale}%

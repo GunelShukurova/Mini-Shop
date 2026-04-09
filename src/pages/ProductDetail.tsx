@@ -7,22 +7,22 @@ import { MdOutlineStarBorder } from "react-icons/md";
 import CheckIcon from "@mui/icons-material/Check";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
-import type { Review } from "../interfaces/review";
-import { getAllReviews } from "../services/review/request";
 import useBasket from "../context/CartContext/cartContext";
 import useFavorites from "../context/FavoritesContext/favoritesContext";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useSearchContext from "../context/SearchContext/searchContext";
+import { staticReviews } from "../data/reviews";
+import formatPrice from "../utils/formatPrice";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const reviews = id ? staticReviews.filter((rev) => rev.productId === id) : [];
 
   const { addToCart } = useBasket();
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -47,7 +47,6 @@ const ProductDetail = () => {
     const loadProduct = async () => {
       try {
         const productData = await getProductById(id);
-        const reviewsData = await getAllReviews();
         const allProducts = await getAllProducts();
 
         if (productData) {
@@ -58,9 +57,6 @@ const ProductDetail = () => {
         }
 
         if (allProducts) setProducts(allProducts);
-
-        const filteredReviews = reviewsData?.filter((rev) => rev.productId === id) || [];
-        setReviews(filteredReviews);
       } catch (error) {
         console.log(error);
       }
@@ -109,13 +105,15 @@ const ProductDetail = () => {
             <span className="text-2xl font-bold">
               $
               {product.sale
-                ? product.price - (product.price * product.sale) / 100
-                : product.price}
+                ? formatPrice(
+                    product.price - (product.price * product.sale) / 100,
+                  )
+                : formatPrice(product.price)}
             </span>
             {product.sale ? (
               <>
                 <span className="text-xl text-gray-400 line-through">
-                  ${product.price}
+                  ${formatPrice(product.price)}
                 </span>
            <span className="text-xs font-semibold text-red-500 bg-red-200 px-2 rounded-full py-1">
                   -{product.sale}%
@@ -258,12 +256,17 @@ const ProductDetail = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xl font-semibold">
-                      ${pro.sale ? pro.price - (pro.price * pro.sale) / 100 : pro.price}
+                      $
+                      {pro.sale
+                        ? formatPrice(
+                            pro.price - (pro.price * pro.sale) / 100,
+                          )
+                        : formatPrice(pro.price)}
                     </span>
                     {pro.sale ? (
                       <>
                         <span className="text-sm text-gray-400 line-through">
-                          ${pro.price}
+                          ${formatPrice(pro.price)}
                         </span>
                         <span className="text-xs font-semibold text-red-500">
                           -{pro.sale}%
